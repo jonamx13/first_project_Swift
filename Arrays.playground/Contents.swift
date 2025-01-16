@@ -27,3 +27,20 @@ print(fruits2)
 
 fruits1.insert("Grapes", at: 1) // Places element at the position given inside the array
 print(fruits1)
+
+var newFruits = ["Orange", "Peach"]
+fruits1.append(contentsOf: newFruits)
+print(newFruits)
+print(fruits1)
+
+let strawBerryExists = fruits1.contains("Strawberry")
+let bananaExists = fruits1.contains("Banana")
+
+fruits1.remove(at: 2)
+print(fruits1)
+
+fruits1.removeLast()
+print(fruits1)
+
+fruits1.removeAll()
+print(fruits1)
