@@ -20,3 +20,21 @@ print(animals)
 
 animals.removeAll()
 print(animals)
+
+let mathematics = Set<String>(["Jhon", "Camila", "Marcela", "Mary", "Anton"])
+let spanish = Set<String>(["Jhon", "Camila", "Andrew", "Mary", "Emilian", "Dorothy"])
+
+let union = mathematics.union(spanish)
+print(union)
+
+let intersection = mathematics.intersection(spanish)
+print(intersection)
+
+let subtraction1 = mathematics.subtracting(spanish)
+print(subtraction1)
+
+let subtraction2 = spanish.subtracting(mathematics)
+print(subtraction2)
+
+let diff = mathematics.symmetricDifference(spanish)
+
