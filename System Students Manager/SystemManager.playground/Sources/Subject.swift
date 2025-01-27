@@ -10,16 +10,16 @@ import Foundation
 public struct Subject {
     let name: String
     let teacherName: String
-    let minimumGrade: Double
+    let level: SubjectLevel
     
-    public init(name: String, teacherName: String, minimumGrade: Double) {
+    public init(name: String, teacherName: String, level: SubjectLevel) {
         self.name = name
         self.teacherName = teacherName
-        self.minimumGrade = minimumGrade
+        self.level = level
     }
     
     public func IsApproved(grade: Double) -> Bool {
-        return grade >= minimumGrade
+        return grade >= minimumGrade()
     }
     
     public func subjectDescription() -> String {
@@ -27,8 +27,19 @@ public struct Subject {
         ---------------------------------
         Subject \(name)
         Teacher: \(teacherName)
-        Mininum Grade: \(minimumGrade)
+        Mininum Grade: \(minimumGrade())
         ---------------------------------
         """
+    }
+    
+    private func minimumGrade() -> Double {
+        switch level {
+        case .basic:
+            return 60.0
+        case .intermediate:
+            return 70.0
+        case .advanced:
+            return 80.0
+        }
     }
 }
