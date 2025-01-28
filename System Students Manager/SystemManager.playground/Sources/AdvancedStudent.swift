@@ -15,10 +15,10 @@ public class AdvancedStudent: Student {
         super.init(name: name, age: age, email: email, subjects: subjects, grades: grades)
     }
     
-    public override func studentDescription() -> String {
+    public override func describe() -> String {
         let subjectDescriptions: String = subjects.map { subject in
             """
-            # \(subject.subjectDescription())
+            # \(subject.describe())
             +++++++++++++++++++++++++++++++++
             """
         }.joined(separator: "\n")

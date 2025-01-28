@@ -7,12 +7,12 @@
 
 import Foundation
 
-public class Student {
+public class Student: Describable {
     let name: String
     let age: Int
     let email: String
-    let subjects: [Subject]
-    let grades: [Double]
+    var subjects: [Subject]
+    var grades: [Double]
     
     public init(name: String, age: Int, email: String, subjects: [Subject], grades: [Double]) {
         self.name = name
@@ -22,10 +22,10 @@ public class Student {
         self.grades = grades
     }
     
-    public func studentDescription() -> String {
+    public func describe() -> String {
         let subjectDescriptions: String = subjects.map { subject in
             """
-            # \(subject.subjectDescription())
+            # \(subject.describe())
             +++++++++++++++++++++++++++++++++
             """
         }.joined(separator: "\n")
@@ -43,5 +43,10 @@ public class Student {
         #Grades: \(grades)
         \n
         """
+    }
+    
+    public func assignSubject(subject: Subject, grade: Double) {
+        self.subjects.append(subject)
+        self.grades.append(grade)
     }
 }
