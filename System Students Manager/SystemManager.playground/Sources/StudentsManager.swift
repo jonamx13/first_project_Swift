@@ -42,24 +42,40 @@ public class StudentsManager: Manageable {
         }
     }
     
+    // filter
     public func getApprovedStudents() -> [Student] {
-        return []
+        return students.filter { student in
+            return student.isApproved()
+        }
     }
     
+    // filter
     public func getStudentsWithFailures() -> [Student] {
-        return []
+        return students.filter { student in
+            return !student.isApproved()
+        }
     }
     
+    // map
     public func getAverages() -> [Double] {
-        return []
+        return students.map { student in
+            return student.getAverageGrade()
+        }
     }
     
     public func getTotalAverages() -> Double {
-        return 0
+        let average = getAverages()
+        let sum = average.reduce(0.0, +)
+        return sum / Double(average.count)
     }
     
+    // reduce
     public func getCoursedSubjects() -> Set<Subject> {
-        return Set<Subject>()
+        return students.reduce(into: Set<Subject>()) { result, student in
+            for subject in student.subjects {
+                result.insert(subject)
+            }
+        }
     }
     
 }

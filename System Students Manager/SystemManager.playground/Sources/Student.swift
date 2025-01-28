@@ -49,4 +49,29 @@ public class Student: Describable {
         self.subjects.append(subject)
         self.grades.append(grade)
     }
+    
+    
+    // is approved only if the student has approved 60% of their subjects
+    public func isApproved() -> Bool {
+        var approvedSubjectsCount: Int = 0
+        for i in 0..<subjects.count {
+            let subject = subjects[i]
+            let grade = grades[i]
+            
+            if subject.IsApproved(grade: grade) {
+                approvedSubjectsCount += 1
+            }
+        }
+        
+        let percentage = (Double(approvedSubjectsCount) / Double(subjects.count)) * 100
+        return percentage >= 60
+    }
+    
+    public func getAverageGrade() -> Double {
+        var sum: Double = 0
+        for grade in grades {
+            sum += grade
+        }
+        return sum / Double(grades.count)
+    }
 }
