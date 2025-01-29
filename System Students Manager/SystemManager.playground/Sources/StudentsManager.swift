@@ -8,9 +8,9 @@
 import Foundation
 
 public protocol Manageable {
-    func insertStudent(_ student: Student?)
-    func assignSubjectToStudent(subject: Subject, grade: Double, student: Student?)
-    func generateStudentsReport()
+    func insertStudent(_ student: Student?) throws
+    func assignSubjectToStudent(subject: Subject?, grade: Double, student: Student?) throws
+    func generateStudentsReport() throws
     func getApprovedStudents() -> [Student]
     func getStudentsWithFailures() -> [Student]
     func getAverages() -> [Double]
@@ -19,36 +19,48 @@ public protocol Manageable {
 }
 
 public class StudentsManager: Manageable {
-    
     var students: [Student]
+    let maxStudents: Int
     
-    public init(students: [Student]) {
+    public init(students: [Student], maxStudents: Int) {
         self.students = students
+        self.maxStudents = maxStudents
     }
     
-    public func insertStudent(_ student: Student?) {
+    public func insertStudent(_ student: Student?) throws {
         // guarding if the student is not nil
         guard let student else {
-            return
+            throw ErrorManager.studentNotAddedError
         }
-        students.append(student)
+        if students.count < maxStudents {
+            students.append(student)
+        } else {
+            throw ErrorManager.maxStudentsReachedError(max: maxStudents)
+        }
     }
     
-    public func assignSubjectToStudent(subject: Subject, grade: Double, student: Student?) {
+    public func assignSubjectToStudent(subject: Subject?, grade: Double, student: Student?) throws {
+        guard let subject else {
+            throw ErrorManager.subjectNotAssignedError
+        }
         // guarding if the variable student is not nil
         if let student {
             for s in students where s.email.elementsEqual(student.email) {
                 s.assignSubject(subject: subject, grade: grade)
             }
         } else { // if it is nil, throw an error
-            //TODO: Throw error
+            throw ErrorManager.subjectNotAssignedError
         }
         
     }
     
-    public func generateStudentsReport() {
-        for student in students {
-            print(student.describe())
+    public func generateStudentsReport() throws {
+        if students.isEmpty {
+            throw ErrorManager.reportNotFoundError
+        } else {
+            for student in students {
+                print(student.describe())
+            }
         }
     }
     
