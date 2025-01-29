@@ -8,8 +8,8 @@
 import Foundation
 
 public protocol Manageable {
-    func insertStudent(_ student: Student)
-    func assignSubjectToStudent(subject: Subject, grade: Double, student: Student)
+    func insertStudent(_ student: Student?)
+    func assignSubjectToStudent(subject: Subject, grade: Double, student: Student?)
     func generateStudentsReport()
     func getApprovedStudents() -> [Student]
     func getStudentsWithFailures() -> [Student]
@@ -26,14 +26,24 @@ public class StudentsManager: Manageable {
         self.students = students
     }
     
-    public func insertStudent(_ student: Student) {
+    public func insertStudent(_ student: Student?) {
+        // guarding if the student is not nil
+        guard let student else {
+            return
+        }
         students.append(student)
     }
     
-    public func assignSubjectToStudent(subject: Subject, grade: Double, student: Student) {
-        for s in students where s.email.elementsEqual(student.email) {
-            s.assignSubject(subject: subject, grade: grade)
+    public func assignSubjectToStudent(subject: Subject, grade: Double, student: Student?) {
+        // guarding if the variable student is not nil
+        if let student {
+            for s in students where s.email.elementsEqual(student.email) {
+                s.assignSubject(subject: subject, grade: grade)
+            }
+        } else { // if it is nil, throw an error
+            //TODO: Throw error
         }
+        
     }
     
     public func generateStudentsReport() {

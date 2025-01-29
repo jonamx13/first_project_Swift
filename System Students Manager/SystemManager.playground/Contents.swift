@@ -7,7 +7,7 @@ let s1 = Student(name: "John", age: 30, email: "new@email.com", subjects: [], gr
 let s2 = AdvancedStudent(name: "Edward", age: 28, email: "advanced@email.com", subjects: [], grades: [], extraPoints: 10.0)
 
 let service = StudentsManager(students: [])
-service.insertStudent(s1)
+service.insertStudent(nil)
 service.insertStudent(s2)
 
 service.assignSubjectToStudent(subject: math, grade: 80, student: s1)
