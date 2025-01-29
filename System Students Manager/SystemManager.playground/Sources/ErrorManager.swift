@@ -22,7 +22,7 @@ public enum ErrorManager: Error, LocalizedError {
         case .reportNotFoundError:
             return "Report not found, students list is empty"
         case .maxStudentsReachedError(let max):
-            return "Max quantity of students reached: (\(max)) students already reached"
+            return "Maximum number of students reached: (\(max)) students already enrolled"
         }
     }
 }
